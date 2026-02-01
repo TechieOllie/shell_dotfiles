@@ -128,9 +128,9 @@ shell_dotfiles/
 
 To update your dotfiles:
 
-1. Pull the latest changes:
+1. Pull the latest changes (replace with your actual dotfiles directory path):
 ```bash
-cd ~/path/to/shell_dotfiles
+cd ~/shell_dotfiles  # or wherever you cloned the repository
 git pull
 ```
 
