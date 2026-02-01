@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Add to PATH
+export PATH="/home/ol/flutter/bin:$PATH"
+
 # Lazy-load antidote and generate the static load file only when needed
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
