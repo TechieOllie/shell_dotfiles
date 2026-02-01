@@ -1,0 +1,22 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = '''
+[┌─ ](bold green)$username$directory $git_branch
+[└─$character ](bold green) '''
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style)'
+
+[character]
+disabled = false
+
+[username]
+show_always = true
+
+[directory]
+format = "[$path](bold blue)"
+truncation_length = 8
+truncation_symbol = '…/'
+
+[directory.substitutions]
+"/mnt/c" = "󰍲"
