@@ -63,6 +63,7 @@ The script will:
 - `mattmc3/ez-compinit` - Completion initialization
 - `zsh-users/zsh-completions` - Additional completions
 - `ohmyzsh/ohmyzsh` (lib and colored-man-pages) - Oh My Zsh utilities
+- `getantidote/use-omz` - Oh My Zsh dependency loader
 - `zdharma-continuum/fast-syntax-highlighting` - Syntax highlighting
 - `zsh-users/zsh-autosuggestions` - Command suggestions
 - `zsh-users/zsh-history-substring-search` - History search
@@ -99,11 +100,8 @@ Edit `zsh/.zsh_plugins.txt` and add plugin names:
 ```
 username/plugin-name
 ```
-Then regenerate the plugin file:
-```bash
-rm ~/.zsh_plugins.zsh && source ~/.zshrc
-```
-
+Then restart your shell or open a new terminal session.
+This will trigger the lazy-load logic in your `.zshrc` to regenerate the plugin file automatically if needed.
 ### Modifying Aliases
 Edit `zsh/.zsh_aliases` and reload:
 ```bash
