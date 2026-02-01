@@ -46,7 +46,7 @@ if [[ ! -f "$FONT_CHECK" ]]; then
   (
     cd /tmp
 
-    curl -Los JetBrainsMono.zip \
+    curl -Lso JetBrainsMono.zip \
       https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
 
     unzip -o JetBrainsMono.zip -d JetBrainsMonoNF
