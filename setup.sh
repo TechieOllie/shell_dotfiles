@@ -2,7 +2,7 @@
 
 set -e
 
-echo "🔍 Starting bootstrap..."
+echo "🔍 Starting Shell Dotfiles Setup..."
 
 # ---- GIT REPO UP-TO-DATE CHECK ----
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
@@ -47,7 +47,7 @@ if [[ ! -f "$FONT_CHECK" ]]; then
     rm -rf JetBrainsMono.zip JetBrainsMonoNF
   )
 
-  fc-cache -fv
+  fc-cache -f
 else
   echo "✅ JetBrains Mono Nerd Font already installed"
 fi
