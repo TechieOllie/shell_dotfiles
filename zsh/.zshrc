@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Add to PATH
-export PATH="/home/ol/flutter/bin:$PATH"
+export PATH="$HOME/flutter/bin:$PATH"
 
 # Load ssh agent
 eval "$(ssh-agent -s)" > /dev/null
