@@ -30,6 +30,14 @@ echo "✅ Git repo is up to date"
 FONT_DIR="$HOME/.local/share/fonts"
 FONT_CHECK="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"
 
+if ! command -v unzip >/dev/null 2>&1; then
+  echo "📦 Installing unzip..."
+  sudo apt update
+  sudo apt install -y unzip
+else
+  echo "✅ unzip already installed"
+fi
+
 if [[ ! -f "$FONT_CHECK" ]]; then
   echo "🔤 Installing JetBrains Mono Nerd Font..."
 
@@ -38,7 +46,7 @@ if [[ ! -f "$FONT_CHECK" ]]; then
   (
     cd /tmp
 
-    curl -Lo JetBrainsMono.zip \
+    curl -Los JetBrainsMono.zip \
       https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
 
     unzip -o JetBrainsMono.zip -d JetBrainsMonoNF
