@@ -12,7 +12,7 @@ A modern, feature-rich ZSH configuration with automated setup for a powerful ter
   - Autosuggestions
   - History substring search
 - **JetBrains Mono Nerd Font** - Beautiful monospace font with icon support
-- **Lazygit** - Terminal UI for git with Nerd Font icons
+- **Lazygit** (Optional) - Terminal UI for git with Nerd Font icons
 - **GNU Stow** - Symlink management for dotfiles
 - **Pre-configured Aliases** - Useful shortcuts for common commands
 
@@ -42,7 +42,7 @@ The script will:
 - 🚀 Install Starship prompt
 - 🧪 Install Antidote plugin manager
 - 📦 Install GNU Stow for dotfile management
-- 🐙 Install Lazygit with Nerd Font configuration
+- 🐙 Optionally install Lazygit (prompts user for confirmation)
 - 🪄 Symlink configuration files using Stow
 - 🔄 Automatically reload into ZSH
 
@@ -53,7 +53,7 @@ The script will:
 - **Starship** - Cross-shell prompt
 - **Antidote** - ZSH plugin manager
 - **GNU Stow** - Symlink farm manager
-- **Lazygit** - Terminal UI for git commands
+- **Lazygit** (Optional) - Terminal UI for git commands
 - **Unzip** - Archive extraction utility
 
 ### Fonts
@@ -62,7 +62,11 @@ The script will:
 ### ZSH Plugins (via Antidote)
 - `mattmc3/ez-compinit` - Completion initialization
 - `zsh-users/zsh-completions` - Additional completions
-- `ohmyzsh/ohmyzsh` (lib and colored-man-pages) - Oh My Zsh utilities
+- `rupa/z` - Directory jumping tool that learns your habits
+- `ohmyzsh/ohmyzsh` (lib) - Oh My Zsh utilities
+- `ohmyzsh/ohmyzsh` (colored-man-pages) - Colorful man pages
+- `ohmyzsh/ohmyzsh` (command-not-found) - Suggest package installation for unknown commands
+- `ohmyzsh/ohmyzsh` (extract) - Universal archive extraction
 - `getantidote/use-omz` - Oh My Zsh dependency loader
 - `zdharma-continuum/fast-syntax-highlighting` - Syntax highlighting
 - `zsh-users/zsh-autosuggestions` - Command suggestions
@@ -84,6 +88,8 @@ Pre-configured aliases:
 - `ll` - List files in long format
 - `la` - List all files including hidden
 - `lg` - Launch Lazygit
+- `q` - Exit terminal
+- `here` - Open Windows Explorer in current directory (WSL only)
 
 ### Starship Prompt (`starship.toml`)
 Custom prompt configuration with:
