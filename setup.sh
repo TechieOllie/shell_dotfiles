@@ -15,14 +15,15 @@ echo "🔄 Checking if git repo is up to date..."
 git fetch --quiet
 
 LOCAL="$(git rev-parse @)"
-REMOTE="$(git rev-parse @{u})"
-BASE="$(git merge-base @ @{u})"
+REMOTE="$(git rev-parse '@{u}')"
+BASE="$(git merge-base @ '@{u}')"
 
 if [[ "$LOCAL" != "$REMOTE" && "$LOCAL" = "$BASE" ]]; then
   echo "❌ Your branch is behind the remote."
   echo "   Please run: git pull"
   exit 1
 fi
+
 
 echo "✅ Git repo is up to date"
 
@@ -113,43 +114,51 @@ else
 fi
 
 # ---- LAZYGIT ----
-if ! command -v lazygit >/dev/null 2>&1; then
-  echo "🐙 Installing lazygit..."
+read -r -p "❓ Install Lazygit? [y/N] " ans
+ans=${ans,,}                # lowercase
+if [[ $ans == "y" || $ans == "yes" ]]; then
+  echo "✅ Continuing..."
+  if ! command -v lazygit >/dev/null 2>&1; then
+    echo "🐙 Installing lazygit..."
 
-  LAZYGIT_VERSION=$(
-    curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" |
-    grep -Po '"tag_name": *"v\K[^"]*'
-  )
+    LAZYGIT_VERSION=$(
+      curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" |
+      grep -Po '"tag_name": *"v\K[^"]*'
+    )
 
-  (
-    cd /tmp
+    (
+      cd /tmp
 
-    curl -Lo lazygit.tar.gz \
-      "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+      curl -Lo lazygit.tar.gz \
+        "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 
-    tar xf lazygit.tar.gz lazygit
-    sudo install lazygit -D -t /usr/local/bin/
+      tar xf lazygit.tar.gz lazygit
+      sudo install lazygit -D -t /usr/local/bin/
 
-    rm -f lazygit lazygit.tar.gz
-  )
-else
-  echo "✅ lazygit already installed"
-fi
+      rm -f lazygit lazygit.tar.gz
+    )
 
-# ---- LAZYGIT CONFIG (ALWAYS OVERRIDE) ----
-LAZYGIT_CONFIG="$HOME/.config/lazygit/config.yml"
+  # ---- LAZYGIT CONFIG (ALWAYS OVERRIDE) ----
+  LAZYGIT_CONFIG="$HOME/.config/lazygit/config.yml"
 
-if command -v lazygit >/dev/null 2>&1; then
-  echo "📝 Writing lazygit config (overriding existing file)..."
+  if command -v lazygit >/dev/null 2>&1; then
+    echo "📝 Writing lazygit config (overriding existing file)..."
 
-  mkdir -p "$(dirname "$LAZYGIT_CONFIG")"
-  cat << 'EOF' > "$LAZYGIT_CONFIG"
+    mkdir -p "$(dirname "$LAZYGIT_CONFIG")"
+    cat << 'EOF' > "$LAZYGIT_CONFIG"
 gui:
   nerdFontsVersion: "3"
 
 notARepository: "skip"
 EOF
+  fi
+  else
+    echo "✅ lazygit already installed"
+  fi
+else
+  echo "⏭️ Skipping..."
 fi
+
 
 # ---- RUN STOW ----
 echo "🪄 Running stow..."
