@@ -128,6 +128,19 @@ fi
 
 echo "✅ Dotfiles repo root confirmed"
 
+# ---- BACKUP EXISTING ZSH CONFIG ----
+shopt -s nullglob
+ZSH_CONFIG_FILES=("$HOME/.zshrc" "$HOME/.zsh_"*)
+if [[ ${#ZSH_CONFIG_FILES[@]} -gt 0 ]]; then
+  BACKUP_DIR="$HOME/.zsh_backup_$(date +%Y%m%d%H%M%S)"
+  echo "🗄️  Backing up existing zsh config to $BACKUP_DIR..."
+  mkdir -p "$BACKUP_DIR"
+  cp -a "${ZSH_CONFIG_FILES[@]}" "$BACKUP_DIR/"
+else
+  echo "✅ No existing zsh config files to back up"
+fi
+shopt -u nullglob
+
 # ---- ZSH ----
 if ! command -v zsh >/dev/null 2>&1; then
   echo "📦 Installing zsh..."
