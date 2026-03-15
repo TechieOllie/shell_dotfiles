@@ -18,24 +18,27 @@ A modern, feature-rich ZSH configuration with automated setup for a powerful ter
 
 ## 📋 Prerequisites
 
-- **Operating System**: Linux (Debian/Ubuntu-based distributions)
+- **Operating System**: Linux (Ubuntu/Debian or Arch/CachyOS)
 - **Permissions**: `sudo` access for package installations
 - **Internet Connection**: Required for downloading tools and fonts
 
 ## 🚀 Installation
 
 1. Clone this repository:
+
 ```bash
 git clone https://github.com/TechieOllie/shell_dotfiles.git
 cd shell_dotfiles
 ```
 
-2. Run the setup script:
+1. Run the setup script:
+
 ```bash
 ./setup.sh
 ```
 
 The script will:
+
 - ✅ Check if the git repository is up to date
 - 🔤 Install JetBrains Mono Nerd Font
 - 📦 Install ZSH and set it as the default shell
@@ -49,6 +52,7 @@ The script will:
 ## 📦 What Gets Installed
 
 ### Tools
+
 - **ZSH** - Your new default shell
 - **Starship** - Cross-shell prompt
 - **Antidote** - ZSH plugin manager
@@ -56,10 +60,17 @@ The script will:
 - **Lazygit** (Optional) - Terminal UI for git commands
 - **Unzip** - Archive extraction utility
 
+### Distro Support
+
+- **Ubuntu/Debian**: Uses `apt`
+- **Arch/CachyOS**: Uses `pacman`
+
 ### Fonts
+
 - **JetBrains Mono Nerd Font** - Installed to `~/.local/share/fonts/`
 
 ### ZSH Plugins (via Antidote)
+
 - `mattmc3/ez-compinit` - Completion initialization
 - `zsh-users/zsh-completions` - Additional completions
 - `rupa/z` - Directory jumping tool that learns your habits
@@ -75,7 +86,9 @@ The script will:
 ## ⚙️ Configuration
 
 ### ZSH Configuration (`.zshrc`)
+
 Located in `zsh/.zshrc`, includes:
+
 - Flutter path configuration
 - SSH agent auto-start
 - Antidote plugin loading
@@ -83,7 +96,9 @@ Located in `zsh/.zshrc`, includes:
 - Starship initialization
 
 ### Aliases (`.zsh_aliases`)
+
 Pre-configured aliases:
+
 - `l` - List files
 - `ll` - List files in long format
 - `la` - List all files including hidden
@@ -92,7 +107,9 @@ Pre-configured aliases:
 - `here` - Open Windows Explorer in current directory (WSL only)
 
 ### Starship Prompt (`starship.toml`)
+
 Custom prompt configuration with:
+
 - Username display
 - Current directory (truncated to 8 levels)
 - Git branch information
@@ -102,19 +119,26 @@ Custom prompt configuration with:
 ## 🎨 Customization
 
 ### Adding ZSH Plugins
+
 Edit `zsh/.zsh_plugins.txt` and add plugin names:
+
 ```
 username/plugin-name
 ```
+
 Then restart your shell or open a new terminal session.
 This will trigger the lazy-load logic in your `.zshrc` to regenerate the plugin file automatically if needed.
+
 ### Modifying Aliases
+
 Edit `zsh/.zsh_aliases` and reload:
+
 ```bash
 source ~/.zsh_aliases
 ```
 
 ### Customizing Starship
+
 Edit `starship/starship.toml` with your preferred configuration. See [Starship documentation](https://starship.rs/config/) for options.
 
 ## 📁 Project Structure
@@ -135,12 +159,14 @@ shell_dotfiles/
 To update your dotfiles:
 
 1. Pull the latest changes (replace with your actual dotfiles directory path):
+
 ```bash
 cd ~/shell_dotfiles  # or wherever you cloned the repository
 git pull
 ```
 
-2. Re-run the setup script:
+1. Re-run the setup script:
+
 ```bash
 ./setup.sh
 ```
@@ -148,14 +174,17 @@ git pull
 ## 🛠️ Troubleshooting
 
 ### Font not displaying correctly
+
 - Ensure your terminal is configured to use "JetBrains Mono Nerd Font"
 - Run `fc-cache -fv` to refresh the font cache
 
 ### ZSH not default shell
+
 - Run: `chsh -s $(which zsh)`
 - Log out and log back in
 
 ### Plugins not loading
+
 - Delete `~/.zsh_plugins.zsh` and restart your shell
 - Check that `~/.antidote` directory exists
 

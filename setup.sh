@@ -27,14 +27,72 @@ fi
 
 echo "✅ Git repo is up to date"
 
+# ---- PACKAGE MANAGER DETECTION ----
+PKG_MGR=""
+if [[ -r /etc/os-release ]]; then
+  . /etc/os-release
+fi
+
+case "${ID:-}" in
+  arch|cachyos|manjaro|endeavouros)
+    PKG_MGR="pacman"
+    ;;
+  ubuntu|debian|linuxmint|pop)
+    PKG_MGR="apt"
+    ;;
+  *)
+    if [[ "${ID_LIKE:-}" == *"arch"* ]]; then
+      PKG_MGR="pacman"
+    elif [[ "${ID_LIKE:-}" == *"debian"* || "${ID_LIKE:-}" == *"ubuntu"* ]]; then
+      PKG_MGR="apt"
+    fi
+    ;;
+esac
+
+if [[ -z "$PKG_MGR" ]]; then
+  echo "❌ Unsupported distro. Supported: Ubuntu/Debian and Arch/CachyOS."
+  exit 1
+fi
+
+PKG_UPDATED=0
+pkg_update() {
+  if [[ "$PKG_UPDATED" -eq 1 ]]; then
+    return
+  fi
+
+  case "$PKG_MGR" in
+    apt)
+      sudo apt update
+      ;;
+    pacman)
+      sudo pacman -Syu --noconfirm
+      ;;
+  esac
+
+  PKG_UPDATED=1
+}
+
+pkg_install() {
+  local pkg="$1"
+  pkg_update
+
+  case "$PKG_MGR" in
+    apt)
+      sudo apt install -y "$pkg"
+      ;;
+    pacman)
+      sudo pacman -S --noconfirm "$pkg"
+      ;;
+  esac
+}
+
 # ---- NERD FONT (JETBRAINS MONO) ----
 FONT_DIR="$HOME/.local/share/fonts"
 FONT_CHECK="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"
 
 if ! command -v unzip >/dev/null 2>&1; then
   echo "📦 Installing unzip..."
-  sudo apt update
-  sudo apt install -y unzip
+  pkg_install unzip
 else
   echo "✅ unzip already installed"
 fi
@@ -73,8 +131,7 @@ echo "✅ Dotfiles repo root confirmed"
 # ---- ZSH ----
 if ! command -v zsh >/dev/null 2>&1; then
   echo "📦 Installing zsh..."
-  sudo apt update
-  sudo apt install -y zsh
+  pkg_install zsh
 else
   echo "✅ zsh already installed"
 fi
@@ -108,7 +165,7 @@ fi
 # ---- STOW ----
 if ! command -v stow >/dev/null 2>&1; then
   echo "📦 Installing stow..."
-  sudo apt install -y stow
+  pkg_install stow
 else
   echo "✅ stow already installed"
 fi
@@ -120,23 +177,26 @@ if [[ $ans == "y" || $ans == "yes" ]]; then
   echo "✅ Continuing..."
   if ! command -v lazygit >/dev/null 2>&1; then
     echo "🐙 Installing lazygit..."
+    if [[ "$PKG_MGR" == "pacman" ]]; then
+      pkg_install lazygit
+    else
+      LAZYGIT_VERSION=$(
+        curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" |
+        grep -Po '"tag_name": *"v\K[^"]*'
+      )
 
-    LAZYGIT_VERSION=$(
-      curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" |
-      grep -Po '"tag_name": *"v\K[^"]*'
-    )
+      (
+        cd /tmp
 
-    (
-      cd /tmp
+        curl -Lo lazygit.tar.gz \
+          "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 
-      curl -Lo lazygit.tar.gz \
-        "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+        tar xf lazygit.tar.gz lazygit
+        sudo install lazygit -D -t /usr/local/bin/
 
-      tar xf lazygit.tar.gz lazygit
-      sudo install lazygit -D -t /usr/local/bin/
-
-      rm -f lazygit lazygit.tar.gz
-    )
+        rm -f lazygit lazygit.tar.gz
+      )
+    fi
 
   # ---- LAZYGIT CONFIG (ALWAYS OVERRIDE) ----
   LAZYGIT_CONFIG="$HOME/.config/lazygit/config.yml"
