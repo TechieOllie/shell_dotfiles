@@ -4,6 +4,8 @@ A modern, feature-rich ZSH configuration with automated setup for a powerful ter
 
 > Note: The setup script and this README were created with AI assistance.
 
+> [INFO] This repo is also available here : [https://git.techieollie.com/TechieOllie/shell_dotfiles](https://git.techieollie.com/TechieOllie/shell_dotfiles)
+
 ## 🌟 Features
 
 - **ZSH Shell** - Fast, customizable shell with extensive plugin support
