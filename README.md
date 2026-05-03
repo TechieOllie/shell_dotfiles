@@ -3,8 +3,8 @@
 A modern, feature-rich ZSH configuration with automated setup for a powerful terminal experience.
 
 > Note: The setup script and this README were created with AI assistance.
-
-> This repo is also available here : [https://git.techieollie.com/TechieOllie/shell_dotfiles](https://git.techieollie.com/TechieOllie/shell_dotfiles)
+> This repo is available here : [https://git.techieollie.com/TechieOllie/shell_dotfiles](https://git.techieollie.com/TechieOllie/shell_dotfiles)
+> And here : [https://github.com/TechieOllie/shell_dotfiles](https://github.com/TechieOllie/shell_dotfiles)
 
 ## 🌟 Features
 
