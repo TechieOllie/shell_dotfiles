@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+DIR="$HOME/Pictures/Screenshots"
+mkdir -p "$DIR"
+
+FILE="$DIR/Screenshot_$(date +'%Y-%m-%d_%H-%M-%S').png"
+
+GEOMETRY=$(slurp -o) || exit 0
+
+grim -g "$GEOMETRY" "$FILE"
+
+wl-copy < "$FILE"
+
+notify-send -i satty \
+    "Screenshot saved" \
+    "Click to edit with Satty" \
+    --action="edit=Edit" | grep -q edit && \
+    satty --filename "$FILE"
