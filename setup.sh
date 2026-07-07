@@ -121,6 +121,8 @@ ensure_starship_wsl_subst() {
   fi
 }
 
+ # TODO: Use ttf-jetbrains-mono-nerd package when installing on arch
+
 # ---- NERD FONT (JETBRAINS MONO) ----
 FONT_DIR="$HOME/.local/share/fonts"
 FONT_CHECK="$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf"
