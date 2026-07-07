@@ -1,1 +1,13 @@
-# Flutter
+# PATH
+export PATH="$PATH:~/.local/bin"
+export PATH="$PATH:$HOME/go/bin"
+
+# Default editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+# opencode
+export PATH=/home/ol/.opencode/bin:$PATH
+
+# nvm
+export NVM_DIR="$HOME/.nvm"

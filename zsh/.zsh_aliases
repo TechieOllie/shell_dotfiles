@@ -1,6 +1,7 @@
-alias l="ls"
-alias ll="ls -l"
-alias la="ls -la"
+alias l='ls --color=auto'
+alias ll="ls -l --color=auto"
+alias la="ls -a --color=auto"
+alias grep='grep --color=auto'
 alias lg="lazygit"
 alias q="exit"
 alias cl="clear"
